@@ -16,9 +16,9 @@ on:
   
 env:
   GITSRC_REPO: git.g-able.com/amt-automate-testing/automate-testing-framework.git
-  #GITOPS_REPO: github.com/gable-credit-control/cc-gitops.git
+  GITOPS_REPO: github.com/gable-credit-control/cc-gitops.git
   GITOPS_MANAGE_BRANCH: develop
-  PIPELINE_ENV: develop
+#  PIPELINE_ENV: develop
   #POM_LINE_NUMBER: 14
   
   
@@ -52,13 +52,15 @@ jobs:
           cp -R action_template/actions/${{ env.PIPELINE_ENV }}/* pipeline/.github/actions/
           ls -l pipeline/.github/actions/
           
+   
+          
       - name: "Call Automated Testing" 
         uses: ./pipeline/.github/actions/AutomatedTesting
         with:
           gitsrc_repo: ${{ env.GITSRC_REPO }}
           gitsrc_token: ${{ secrets.GITLAB_TOKEN }}
-          #gitops_token: ${{ secrets.GITOPS_TOKEN }}
-          #gitops_repo: ${{ env.GITOPS_REPO }}
-          #gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
+          gitops_token: ${{ secrets.GITOPS_TOKEN }}
+          gitops_repo: ${{ env.GITOPS_REPO }}
+          gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
           #pom_line_number: ${{ env.POM_LINE_NUMBER }}
           
