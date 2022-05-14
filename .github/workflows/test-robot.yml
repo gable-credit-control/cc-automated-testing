@@ -53,12 +53,12 @@ jobs:
           ls -l pipeline/.github/actions/
           
       - name: "Call Build Pipeline" 
-        uses: ./pipeline/.github/actions/BuildPipelineAction
+        uses: ./pipeline/.github/actions/AutomatedTesting
         with:
           gitsrc_repo: ${{ env.GITSRC_REPO }}
           gitsrc_token: ${{ secrets.GITLAB_TOKEN }}
-          gitops_token: ${{ secrets.GITOPS_TOKEN }}
-          gitops_repo: ${{ env.GITOPS_REPO }}
-          gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
-          pom_line_number: ${{ env.POM_LINE_NUMBER }}
+          #gitops_token: ${{ secrets.GITOPS_TOKEN }}
+          #gitops_repo: ${{ env.GITOPS_REPO }}
+          #gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
+          #pom_line_number: ${{ env.POM_LINE_NUMBER }}
           
