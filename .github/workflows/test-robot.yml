@@ -18,7 +18,7 @@ env:
   GITSRC_REPO: git.g-able.com/amt-automate-testing/automate-testing-framework.git
   GITOPS_REPO: github.com/gable-credit-control/cc-gitops.git
   GITOPS_MANAGE_BRANCH: develop
-#  PIPELINE_ENV: develop
+  PIPELINE_ENV: develop
   #POM_LINE_NUMBER: 14
   
   
