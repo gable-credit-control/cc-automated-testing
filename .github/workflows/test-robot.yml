@@ -52,7 +52,7 @@ jobs:
           cp -R action_template/actions/${{ env.PIPELINE_ENV }}/* pipeline/.github/actions/
           ls -l pipeline/.github/actions/
           
-      - name: "Call Build Pipeline" 
+      - name: "Call Automated Testing" 
         uses: ./pipeline/.github/actions/AutomatedTesting
         with:
           gitsrc_repo: ${{ env.GITSRC_REPO }}
