@@ -25,7 +25,9 @@ env:
 jobs:
   automated-testing:
     runs-on: ubuntu-latest      
-#     environment: develop
+    environment: 
+      name: develop
+      url: ${{ steps.set-output-automated-test.outputs.url_output }}
     
     steps:
       - name: Checkout Action Template
@@ -63,4 +65,8 @@ jobs:
           gitops_repo: ${{ env.GITOPS_REPO }}
           gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
           #pom_line_number: ${{ env.POM_LINE_NUMBER }}
+          
+      - name: "Set URL" 
+        id: set-output-automated-test
+        run: echo '::set-output name=url_output::https://mystorageaccount18347.z13.web.core.windows.net/${{ env.report_dir }}/log.html'
           
