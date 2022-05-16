@@ -67,20 +67,6 @@ jobs:
           gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
           automate_test_script: ${{ env.AUTOMATE_TEST_SCRIPT }}
           automate_test_tag: ${{ env.AUTOMATE_TEST_TAG }}
-                 
-      - name: "Complete Notification" 
-        uses: ./pipeline/.github/actions/NotificationAction
-        if: ${{ success() }}
-        with:
-          github_token: ${{ secrets.GITOPS_TOKEN }}
-          notify_mesg: "Automated Testing Script ${{ env.script_name }} result is PASS"    
-          
-      - name: "Failure Notification" 
-        uses: ./pipeline/.github/actions/NotificationAction
-        if: ${{ failure() }}
-        with:
-          github_token: ${{ secrets.GITOPS_TOKEN }}
-          notify_mesg: "Automated Testing script ${{ env.script_name }} result is FAIL !"              
           
       - name: "Set URL" 
         id: set-output-automated-test
