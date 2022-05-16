@@ -65,8 +65,25 @@ jobs:
           gitops_repo: ${{ env.GITOPS_REPO }}
           gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
           #pom_line_number: ${{ env.POM_LINE_NUMBER }}
+                 
+      - name: "Complete Notification" 
+        uses: ./pipeline/.github/actions/NotificationAction
+        if: ${{ success() }}
+        with:
+          github_token: ${{ secrets.GITOPS_TOKEN }}
+          notify_mesg: "Automate Testing PASS"    
+          
+      - name: "Failure Notification" 
+        uses: ./pipeline/.github/actions/NotificationAction
+        if: ${{ success() }}
+        with:
+          github_token: ${{ secrets.GITOPS_TOKEN }}
+          notify_mesg: "Automate Testing FAIL !"              
           
       - name: "Set URL" 
         id: set-output-automated-test
-        run: echo '::set-output name=url_output::https://mystorageaccount18347.z13.web.core.windows.net/${{ env.report_dir }}/log.html'
+        if: ${{ success() || failure() }}
+        run: echo '::set-output name=url_output::https://mystorageaccount18347.z13.web.core.windows.net/${{ env.report_dir }}/log.html'          
+          
+          
           
