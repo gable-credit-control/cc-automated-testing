@@ -19,7 +19,8 @@ env:
   GITOPS_REPO: github.com/gable-credit-control/cc-gitops.git
   GITOPS_MANAGE_BRANCH: develop
   PIPELINE_ENV: develop
-  AUTOMATE_TEST_SCRIPT: ui_bmi_calculator_metric_units.robot 
+  #AUTOMATE_TEST_SCRIPT: ui_bmi_calculator_metric_units.robot 
+  AUTOMATE_TEST_SCRIPT: ui_bmi_calculator_us_units.robot 
   AUTOMATE_TEST_TAG: all
   
   
