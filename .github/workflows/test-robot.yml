@@ -19,7 +19,8 @@ env:
   GITOPS_REPO: github.com/gable-credit-control/cc-gitops.git
   GITOPS_MANAGE_BRANCH: develop
   PIPELINE_ENV: develop
-  #POM_LINE_NUMBER: 14
+  AUTOMATE_TEST_SCRIPT: ui_bmi_calculator_metric_units.robot 
+  AUTOMATE_TEST_TAG: all
   
   
 jobs:
@@ -64,7 +65,8 @@ jobs:
           gitops_token: ${{ secrets.GITOPS_TOKEN }}
           gitops_repo: ${{ env.GITOPS_REPO }}
           gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
-          #pom_line_number: ${{ env.POM_LINE_NUMBER }}
+          automate_test_script: ${{ env.AUTOMATE_TEST_SCRIPT }}
+          automate_test_tag: ${{ env.AUTOMATE_TEST_TAG }}
                  
       - name: "Complete Notification" 
         uses: ./pipeline/.github/actions/NotificationAction
