@@ -75,7 +75,7 @@ jobs:
           
       - name: "Failure Notification" 
         uses: ./pipeline/.github/actions/NotificationAction
-        if: ${{ success() }}
+        if: ${{ failure() }}
         with:
           github_token: ${{ secrets.GITOPS_TOKEN }}
           notify_mesg: "Automate Testing FAIL !"              
