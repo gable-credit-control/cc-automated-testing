@@ -25,7 +25,8 @@ env:
   
 jobs:
   automated-testing:
-    runs-on: ubuntu-latest      
+#     runs-on: ubuntu-latest      
+    runs-on: cc-runner
     environment: 
       name: develop
       url: ${{ steps.set-output-automated-test.outputs.url_output }}
