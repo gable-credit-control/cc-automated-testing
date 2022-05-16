@@ -1,0 +1,78 @@
+# This is a basic workflow to help you get started with Actions
+
+name: test-cc-review-service-age
+
+on:          
+  #push:
+  #  branches: [ develop ]
+  #  paths-ignore:
+  #    - '.github/**'
+  #    - 'badges/*'
+  #    - 'pom.xml'
+  #    - '*.svg'
+  #    - '*.json'
+  #    - '*.md'
+  workflow_dispatch:
+  
+env:
+  GITSRC_REPO: git.g-able.com/amt-automate-testing/automate-testing-framework.git
+  GITOPS_REPO: github.com/gable-credit-control/cc-gitops.git
+  GITOPS_MANAGE_BRANCH: develop
+  PIPELINE_ENV: develop
+  AUTOMATE_TEST_SCRIPT: batch_cc_review_service_age.robot  
+  AUTOMATE_TEST_TAG: TestAll
+  
+  
+jobs:
+  automated-testing:
+#     runs-on: ubuntu-latest      
+    runs-on: cc-runner
+    environment: 
+      name: develop
+      url: ${{ steps.set-output-automated-test.outputs.url_output }}
+    
+    steps:
+      - name: Checkout Action Template
+        uses: actions/checkout@v2.4.0
+        with:
+          repository: gable-credit-control/cc-action-template
+          ref: develop
+          token: ${{ secrets.GITOPS_TOKEN }}
+          path: action_template
+          
+      - name: Checkout Pipeline
+        uses: actions/checkout@v2.4.0
+        with:
+          path: pipeline
+
+      - name: Setup Action Template
+        run: |
+          echo "Setup Action Template"
+          echo "pipeline_env=${{ env.PIPELINE_ENV }}" >> $GITHUB_ENV
+          ls -l
+          ls -l action_template/actions/${{ env.PIPELINE_ENV }}
+          ls -l pipeline/.github/workflows/
+          mkdir -p pipeline/.github/actions
+          cp -R action_template/actions/${{ env.PIPELINE_ENV }}/* pipeline/.github/actions/
+          ls -l pipeline/.github/actions/
+          
+   
+          
+      - name: "Call Automated Testing" 
+        uses: ./pipeline/.github/actions/AutomatedTesting
+        with:
+          gitsrc_repo: ${{ env.GITSRC_REPO }}
+          gitsrc_token: ${{ secrets.GITLAB_TOKEN }}
+          gitops_token: ${{ secrets.GITOPS_TOKEN }}
+          gitops_repo: ${{ env.GITOPS_REPO }}
+          gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
+          automate_test_script: ${{ env.AUTOMATE_TEST_SCRIPT }}
+          automate_test_tag: ${{ env.AUTOMATE_TEST_TAG }}
+          
+      - name: "Set URL" 
+        id: set-output-automated-test
+        if: ${{ success() || failure() }}
+        run: echo '::set-output name=url_output::https://mystorageaccount18347.z13.web.core.windows.net/${{ env.report_dir }}/log.html'          
+          
+          
+          
