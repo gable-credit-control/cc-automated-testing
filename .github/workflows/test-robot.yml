@@ -73,14 +73,14 @@ jobs:
         if: ${{ success() }}
         with:
           github_token: ${{ secrets.GITOPS_TOKEN }}
-          notify_mesg: "Automate Testing PASS"    
+          notify_mesg: "Automated Testing Script ${{ env.script_name }} result is PASS"    
           
       - name: "Failure Notification" 
         uses: ./pipeline/.github/actions/NotificationAction
         if: ${{ failure() }}
         with:
           github_token: ${{ secrets.GITOPS_TOKEN }}
-          notify_mesg: "Automate Testing FAIL !"              
+          notify_mesg: "Automated Testing script ${{ env.script_name }} result is FAIL !"              
           
       - name: "Set URL" 
         id: set-output-automated-test
