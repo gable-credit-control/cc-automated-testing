@@ -23,6 +23,7 @@ env:
   AUTOMATE_TEST_SCRIPT: ui_bmi_calculator_us_units.robot 
   #AUTOMATE_TEST_SCRIPT: ui_payment_calculator_tdd.robot  
   AUTOMATE_TEST_TAG: all
+  WORKFLOW_NAME: test-robot
   
   
 jobs:
@@ -70,6 +71,7 @@ jobs:
           gitops_manage_branch: ${{ env.GITOPS_MANAGE_BRANCH }}
           automate_test_script: ${{ env.AUTOMATE_TEST_SCRIPT }}
           automate_test_tag: ${{ env.AUTOMATE_TEST_TAG }}
+          sourcecode_home_path: ${{ env.WORKFLOW_NAME }}
           
       - name: "Set URL" 
         id: set-output-automated-test
